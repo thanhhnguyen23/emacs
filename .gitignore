@@ -3,3 +3,10 @@ elpaca/
 projectile-bookmarks.eld
 recentf
 sessions
+auto-save-list/
+elpa/
+transient/
+url/
+.org-id-locations
+org-roam.db
+tramp
