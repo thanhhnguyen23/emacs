@@ -5,7 +5,7 @@
 #+STARTUP: showeverything
 #+OPTIONS: toc:2
 
-* TABLE OF CONTENTS :toc:
+* TABLE OF CONTENTS :TOC:
 - [[#important-programs-to-load-first][IMPORTANT PROGRAMS TO LOAD FIRST]]
   - [[#adding-the-scripts-directory-to-path][Adding the scripts directory to path]]
   - [[#sourcing-the-scripts][Sourcing the scripts]]
@@ -51,6 +51,8 @@
 - [[#tldr][TLDR]]
 - [[#transparency][TRANSPARENCY]]
 - [[#which-key][WHICH-KEY]]
+- [[#other][OTHER]]
+  - [[#zk][ZK]]
 
 * IMPORTANT PROGRAMS TO LOAD FIRST
 ** Adding the scripts directory to path
@@ -107,18 +109,13 @@
 Emacs Dashboard is an extensible startup screen showing you recent files, bookmarks, agenda items and an Emacs banner.
 
 #+begin_src emacs-lisp
-(use-package dashboard
-  :ensure t 
-  :init
-  (setq initial-buffer-choice 'dashboard-open)
+(use-package dashboard :ensure t :init (setq initial-buffer-choice 'dashboard-open)
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
   (setq dashboard-banner-logo-title "Emacs Is More Than A Text Editor!")
   (setq dashboard-startup-banner 'logo) ;; use standard emacs logo as banner
   (setq dashboard-center-content nil) ;; set to 't' for centered content
-  (setq dashboard-items '((recents . 5)
-                          (agenda . 5 )
-                          (bookmarks . 3)
+  (setq dashboard-items '((recents . 5) (agenda . 5 ) (bookmarks . 3)
                           (projects . 3)
                           (registers . 3)))
   :custom 
@@ -390,7 +387,7 @@ Defining the various fonts that Emacs will use.
     "g t" '(git-timemachine :wk "Git time machine")
     "g u" '(magit-stage-file :wk "Git unstage file"))
 
- (dt/leader-keys
+  (dt/leader-keys
     "h" '(:ignore t :wk "Help")
     "h a" '(counsel-apropos :wk "Apropos")
     "h b" '(describe-bindings :wk "Describe bindings")
@@ -473,6 +470,10 @@ Defining the various fonts that Emacs will use.
     "t v" '(vterm-toggle :wk "Toggle vterm"))
 
   (dt/leader-keys
+    "z" '(:ignore t :wk "Zettelkasten")
+    "z n" '(zk-new-note :wk "New Note"))
+
+  (dt/leader-keys
     "w" '(:ignore t :wk "Windows")
     ;; Window splits
     "w c" '(evil-window-delete :wk "Close window")
@@ -490,7 +491,7 @@ Defining the various fonts that Emacs will use.
     "w J" '(buf-move-down :wk "Buffer move down")
     "w K" '(buf-move-up :wk "Buffer move up")
     "w L" '(buf-move-right :wk "Buffer move right"))
-)
+  )
 
 #+end_src
 
@@ -909,3 +910,16 @@ With Emacs version 29, true transparency has been added.  I have turned transpar
 	  which-key-separator " → " ))
 #+end_src
 
+* OTHER
+
+** ZK
+#+begin_src emacs-lisp
+(use-package zk
+  :custom
+  (zk-directory "/home/thn05/Dropbox/000_Zettelkasten/")
+  (zk-file-extension "md")
+  :config
+  (zk-setup-auto-link-buttons)
+  (zk-setup-embark))
+
+#+end_src
